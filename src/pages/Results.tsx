@@ -10,12 +10,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { GameState, PlayerStats } from "@/types/game";
-import { Trophy } from "lucide-react";
+import { Trophy, History } from "lucide-react";
+import { format } from "date-fns";
 
 const Results = () => {
   const navigate = useNavigate();
   const [stats, setStats] = useState<PlayerStats[]>([]);
+  const [tournamentHistory, setTournamentHistory] = useState<Array<{ date: string; stats: PlayerStats[] }>>([]);
 
   useEffect(() => {
     const savedState = localStorage.getItem("gameState");
@@ -25,6 +34,20 @@ const Results = () => {
     }
 
     const gameState: GameState = JSON.parse(savedState);
+    const playerStats = calculatePlayerStats(gameState);
+    setStats(playerStats);
+
+    // Save current tournament to history
+    const history = JSON.parse(localStorage.getItem("tournamentHistory") || "[]");
+    const newHistory = [
+      { date: new Date().toISOString(), stats: playerStats },
+      ...history,
+    ].slice(0, 10); // Keep only last 10 tournaments
+    localStorage.setItem("tournamentHistory", JSON.stringify(newHistory));
+    setTournamentHistory(newHistory);
+  }, [navigate]);
+
+  const calculatePlayerStats = (gameState: GameState) => {
     const playerStats = gameState.players.map((player) => {
       const scores = player.scores.filter((s) => s > 0);
       const averagePerHole = scores.reduce((a, b) => a + b, 0) / scores.length;
@@ -62,8 +85,8 @@ const Results = () => {
       player.position = idx + 1;
     });
 
-    setStats(playerStats);
-  }, [navigate]);
+    return playerStats;
+  };
 
   const newGame = () => {
     localStorage.removeItem("gameState");
@@ -150,13 +173,63 @@ const Results = () => {
           </Table>
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 flex justify-center gap-4">
           <Button
             onClick={newGame}
             className="bg-forest hover:bg-forest/90 text-white"
           >
             Start New Tournament
           </Button>
+          
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="gap-2">
+                <History className="w-4 h-4" />
+                Tournament History
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Tournament History</DialogTitle>
+              </DialogHeader>
+              {tournamentHistory.map((tournament, index) => (
+                <div key={tournament.date} className="mb-8">
+                  <h3 className="font-semibold mb-4">
+                    {format(new Date(tournament.date), "PPpp")}
+                  </h3>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Position</TableHead>
+                        <TableHead>Player</TableHead>
+                        <TableHead>Total</TableHead>
+                        <TableHead>Avg/Hole</TableHead>
+                        <TableHead>Best</TableHead>
+                        <TableHead>Worst</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {tournament.stats.map((player) => (
+                        <TableRow key={player.id}>
+                          <TableCell>{player.position}</TableCell>
+                          <TableCell className="font-medium">
+                            {player.name}
+                          </TableCell>
+                          <TableCell>
+                            {player.total} ({player.overPar > 0 ? "+" : ""}
+                            {player.overPar})
+                          </TableCell>
+                          <TableCell>{player.averagePerHole.toFixed(1)}</TableCell>
+                          <TableCell>{player.bestHole}</TableCell>
+                          <TableCell>{player.worstHole}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              ))}
+            </DialogContent>
+          </Dialog>
         </div>
       </Card>
     </div>
