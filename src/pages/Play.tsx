@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { GameState } from "@/types/game";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Flag } from "lucide-react";
 import { toast } from "sonner";
 
 const Play = () => {
@@ -61,6 +61,34 @@ const Play = () => {
       
       return { ...prev, pars: newPars, players: newPlayers };
     });
+  };
+
+  const finishTournament = () => {
+    if (!gameState) return;
+    
+    // Check if at least one hole has scores for all players
+    const hasAnyScores = gameState.players.every(player => 
+      player.scores.some(score => score > 0)
+    );
+    
+    if (!hasAnyScores) {
+      toast.error("Each player must have at least one hole scored");
+      return;
+    }
+    
+    // Fill remaining holes with 0 scores
+    const updatedPlayers = gameState.players.map(player => ({
+      ...player,
+      scores: player.scores.map(score => score || 0)
+    }));
+    
+    const finalState = {
+      ...gameState,
+      players: updatedPlayers
+    };
+    
+    localStorage.setItem("gameState", JSON.stringify(finalState));
+    navigate("/results");
   };
 
   const navigate_hole = (direction: 'prev' | 'next') => {
@@ -141,27 +169,37 @@ const Play = () => {
             ))}
           </div>
 
-          <div className="flex justify-between gap-4 mt-8">
+          <div className="flex flex-col gap-4 mt-8">
             <Button
-              onClick={() => navigate_hole('prev')}
-              disabled={gameState.currentHole === 0}
-              variant="outline"
-              className="w-1/2"
+              onClick={finishTournament}
+              variant="secondary"
+              className="w-full"
             >
-              <ChevronLeft className="w-4 h-4 mr-2" /> Previous Hole
+              <Flag className="w-4 h-4 mr-2" /> End Tournament Early
             </Button>
-            <Button
-              onClick={() => navigate_hole('next')}
-              className="w-1/2 bg-forest hover:bg-forest/90"
-            >
-              {gameState.currentHole === gameState.totalHoles - 1 ? (
-                "Finish Tournament"
-              ) : (
-                <>
-                  Next Hole <ChevronRight className="w-4 h-4 ml-2" />
-                </>
-              )}
-            </Button>
+            
+            <div className="flex justify-between gap-4">
+              <Button
+                onClick={() => navigate_hole('prev')}
+                disabled={gameState.currentHole === 0}
+                variant="outline"
+                className="w-1/2"
+              >
+                <ChevronLeft className="w-4 h-4 mr-2" /> Previous Hole
+              </Button>
+              <Button
+                onClick={() => navigate_hole('next')}
+                className="w-1/2 bg-forest hover:bg-forest/90"
+              >
+                {gameState.currentHole === gameState.totalHoles - 1 ? (
+                  "Finish Tournament"
+                ) : (
+                  <>
+                    Next Hole <ChevronRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </Card>
