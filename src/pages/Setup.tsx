@@ -13,7 +13,6 @@ const Setup = () => {
   const [totalHoles, setTotalHoles] = useState<number>(18);
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([
     { id: uuidv4(), name: "" },
-    { id: uuidv4(), name: "" },
   ]);
 
   const addPlayer = () => {
@@ -25,8 +24,8 @@ const Setup = () => {
   };
 
   const removePlayer = (id: string) => {
-    if (players.length <= 2) {
-      toast.error("Minimum 2 players required");
+    if (players.length <= 1) {
+      toast.error("Minimum 1 player required");
       return;
     }
     setPlayers(players.filter((p) => p.id !== id));
