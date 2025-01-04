@@ -34,7 +34,7 @@ jobs:
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: build # The folder the action should deploy.
+        folder: dist # The folder the action should deploy.
         git-config-name: pablo
         git-config-email: pablo@xyz.c
 
