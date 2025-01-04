@@ -125,17 +125,17 @@ const Play = () => {
     <div className="min-h-screen bg-gradient-to-b from-navy via-navy-light to-white p-6">
       <Card className="max-w-2xl mx-auto p-8 bg-white/90 backdrop-blur">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-forest">
+          <h2 className="text-3xl font-bold text-navy">
             Hole {gameState.currentHole + 1}
           </h2>
-          <p className="text-sage mt-2">
+          <p className="text-navy-light mt-2">
             Par: {gameState.pars[gameState.currentHole]}
           </p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Par</label>
+            <label className="block text-sm font-medium mb-2 text-navy">Par</label>
             <Input
               type="number"
               value={gameState.pars[gameState.currentHole]}
@@ -149,8 +149,8 @@ const Play = () => {
             {gameState.players.map((player) => (
               <div key={player.id} className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <label className="text-sm font-medium">{player.name}</label>
-                  <div className="text-sm text-sage">
+                  <label className="text-sm font-medium text-navy">{player.name}</label>
+                  <div className="text-sm text-navy-light">
                     Total: {player.total} ({player.overPar > 0 ? "+" : ""}
                     {player.overPar})
                   </div>
@@ -173,7 +173,7 @@ const Play = () => {
             <Button
               onClick={finishTournament}
               variant="secondary"
-              className="w-full"
+              className="w-full text-navy"
             >
               <Flag className="w-4 h-4 mr-2" /> End Tournament Early
             </Button>
@@ -183,13 +183,13 @@ const Play = () => {
                 onClick={() => navigate_hole('prev')}
                 disabled={gameState.currentHole === 0}
                 variant="outline"
-                className="w-1/2"
+                className="w-1/2 text-navy"
               >
                 <ChevronLeft className="w-4 h-4 mr-2" /> Previous Hole
               </Button>
               <Button
                 onClick={() => navigate_hole('next')}
-                className="w-1/2 bg-forest hover:bg-forest/90"
+                className="w-1/2 bg-navy hover:bg-navy-light text-white"
               >
                 {gameState.currentHole === gameState.totalHoles - 1 ? (
                   "Finish Tournament"

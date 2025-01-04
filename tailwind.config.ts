@@ -20,20 +20,14 @@ export default {
     extend: {
       colors: {
         navy: {
-          DEFAULT: "#0A192F",
-          light: "#112240",
-          dark: "#020C1B",
+          DEFAULT: "#1E3A8A",
+          light: "#2563EB",
+          dark: "#1E40AF",
         },
         accent: {
-          blue: "#0EA5E9",
-          light: "#64FFDA",
+          blue: "#60A5FA",
+          light: "#93C5FD",
         },
-        forest: "#2D5A27",
-        sage: "#8BA888",
-        earth: "#A67C52",
-        gold: "#FFD700",
-        silver: "#C0C0C0",
-        bronze: "#CD7F32",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

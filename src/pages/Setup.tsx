@@ -68,13 +68,13 @@ const Setup = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-navy via-navy-light to-white p-6">
       <Card className="max-w-2xl mx-auto p-8 bg-white/90 backdrop-blur">
-        <h1 className="text-4xl font-bold text-forest mb-8 text-center">
+        <h1 className="text-4xl font-bold text-navy mb-8 text-center">
           Disc Golf Scorecard
         </h1>
 
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-medium mb-2 text-navy">
               Number of Holes
             </label>
             <Input
@@ -89,12 +89,12 @@ const Setup = () => {
 
           <div>
             <div className="flex justify-between items-center mb-4">
-              <label className="block text-sm font-medium">Players</label>
+              <label className="block text-sm font-medium text-navy">Players</label>
               <Button
                 onClick={addPlayer}
                 variant="outline"
                 size="sm"
-                className="text-forest"
+                className="text-navy-light hover:text-navy"
               >
                 <Plus className="w-4 h-4 mr-1" /> Add Player
               </Button>
@@ -113,7 +113,7 @@ const Setup = () => {
                     onClick={() => removePlayer(player.id)}
                     variant="outline"
                     size="icon"
-                    className="text-red-500"
+                    className="text-destructive"
                   >
                     <Minus className="w-4 h-4" />
                   </Button>
@@ -124,7 +124,7 @@ const Setup = () => {
 
           <Button
             onClick={startTournament}
-            className="w-full bg-forest hover:bg-forest/90 text-white"
+            className="w-full bg-navy hover:bg-navy-light text-white"
           >
             Start Tournament
           </Button>

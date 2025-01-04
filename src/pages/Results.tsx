@@ -97,7 +97,7 @@ const Results = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-navy via-navy-light to-white p-6">
       <Card className="max-w-4xl mx-auto p-8 bg-white/90 backdrop-blur">
-        <h1 className="text-4xl font-bold text-forest mb-8 text-center">
+        <h1 className="text-4xl font-bold text-navy mb-8 text-center">
           Tournament Results
         </h1>
 
@@ -107,7 +107,7 @@ const Results = () => {
         <div className="mt-8 flex justify-center gap-4">
           <Button
             onClick={newGame}
-            className="bg-forest hover:bg-forest/90 text-white"
+            className="bg-navy hover:bg-navy-light text-white"
           >
             Start New Tournament
           </Button>
