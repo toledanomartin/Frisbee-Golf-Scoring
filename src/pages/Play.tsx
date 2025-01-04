@@ -122,7 +122,7 @@ const Play = () => {
   if (!gameState) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-forest to-sage p-6">
+    <div className="min-h-screen bg-gradient-to-b from-navy via-navy-light to-white p-6">
       <Card className="max-w-2xl mx-auto p-8 bg-white/90 backdrop-blur">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-forest">

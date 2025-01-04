@@ -95,7 +95,7 @@ const Results = () => {
   if (!stats.length) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-forest to-sage p-6">
+    <div className="min-h-screen bg-gradient-to-b from-navy via-navy-light to-white p-6">
       <Card className="max-w-4xl mx-auto p-8 bg-white/90 backdrop-blur">
         <h1 className="text-4xl font-bold text-forest mb-8 text-center">
           Tournament Results
