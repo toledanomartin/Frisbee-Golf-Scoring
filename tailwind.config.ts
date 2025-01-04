@@ -19,6 +19,15 @@ export default {
     },
     extend: {
       colors: {
+        navy: {
+          DEFAULT: "#0A192F",
+          light: "#112240",
+          dark: "#020C1B",
+        },
+        accent: {
+          blue: "#0EA5E9",
+          light: "#64FFDA",
+        },
         forest: "#2D5A27",
         sage: "#8BA888",
         earth: "#A67C52",
