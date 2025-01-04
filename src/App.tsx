@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Setup from "./pages/Setup";
 import Play from "./pages/Play";
 import Results from "./pages/Results";
+import { Languages } from "lucide-react";
 
 const queryClient = new QueryClient();
 
@@ -27,3 +28,4 @@ const App = () => (
 );
 
 export default App;
+Languages:(es_ES)
