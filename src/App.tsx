@@ -15,7 +15,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="score-swinger">
+      <BrowserRouter basename="disc-golf-scoring">
         <Routes>
           <Route path="/" element={<Setup />} />
           <Route path="/play" element={<Play />} />
